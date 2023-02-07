@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,15 +23,22 @@ public class Product implements Serializable{
 	private Integer amount;
 	private Double price;
 	
+	@ManyToOne
+	@JoinColumn(name = "category")
+	private Category category;
+	
+	
+	
 	public Product() {
 	}
 
-	public Product(Long id, String name, Integer amount, Double price) {
+	public Product(Long id, String name, Integer amount, Double price, Category category) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.amount = amount;
 		this.price = price;
+		this.category = category;
 	}
 
 	public Long getId() {
@@ -62,6 +71,14 @@ public class Product implements Serializable{
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	@Override
